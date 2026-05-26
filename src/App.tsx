@@ -544,7 +544,7 @@ export default function App() {
             </h2>
             
             {/* Tabs */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+            <div className="flex items-center justify-center gap-2 mb-8">
                 {[
                   {id: 'single', label: 'Single Scan', icon: Search},
                   {id: 'bulk', label: 'Bulk Entry', icon: ListFilter},
@@ -780,23 +780,23 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6 max-w-5xl mx-auto"
             >
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-2 gap-4">
-                <div className="flex items-start sm:items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-600/20 rounded-lg flex items-center justify-center text-blue-400 shrink-0">
+              <div className="flex items-center justify-between px-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-blue-600/20 rounded-lg flex items-center justify-center text-blue-400">
                     <BarChart className="w-5 h-5" />
                   </div>
                   <div>
                     <h3 className="text-xl font-black text-white tracking-tight uppercase font-brand">Account Spend Ranking</h3>
                     <div className="flex flex-wrap items-center gap-2 mt-0.5">
                       <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Sorted by Monthly Tech Expenditure</p>
-                      <div className="hidden sm:block h-1.5 w-1.5 bg-blue-500 rounded-full" />
+                      <div className="h-1.5 w-1.5 bg-blue-500 rounded-full" />
                       <span className="px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono text-[9px] rounded font-bold">
                         1 USD = ₹{exchangeRate.toFixed(2)} INR
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 w-full md:w-auto">
+                <div className="flex items-center gap-4">
                   <button
                     onClick={() => {
                       const allItems = [...scanHistory, ...summaries];
@@ -831,8 +831,7 @@ export default function App() {
               </div>
 
               <div className="glass rounded-[2rem] border-white/5 overflow-hidden">
-                <div className="overflow-x-auto custom-scrollbar">
-                  <table className="w-full text-left border-collapse min-w-[800px]">
+                <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-white/10 bg-white/5">
                       <th className="py-4 px-6 text-[10px] font-mono text-slate-500 uppercase tracking-widest">Rank</th>
@@ -937,7 +936,6 @@ export default function App() {
                     })()}
                   </tbody>
                 </table>
-                </div>
                 {scanHistory.length === 0 && summaries.length === 0 && (
                   <div className="py-20 text-center">
                     <p className="text-slate-500 text-sm font-mono">NO SCAN DATA DETECTED</p>

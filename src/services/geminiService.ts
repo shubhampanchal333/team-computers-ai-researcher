@@ -1,16 +1,6 @@
 import { GoogleGenAI, Type, ThinkingLevel } from "@google/genai";
 
-let ai: GoogleGenAI;
-const getAI = () => {
-  if (!ai) {
-    const key = process.env.GEMINI_API_KEY as string;
-    if (!key || key === 'undefined') {
-      throw new Error("GEMINI_API_KEY is missing. Please add it to your Vercel environment variables.");
-    }
-    ai = new GoogleGenAI({ apiKey: key });
-  }
-  return ai;
-};
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string });
 
 export interface CompanyResearch {
   name: string;
@@ -158,7 +148,7 @@ export interface CompanySummary {
 }
 
 export async function discoverCompanies(prompt: string): Promise<CompanySummary[]> {
-  const response = await getAI().models.generateContent({
+  const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: `Quickly discover companies based on: "${prompt}". 
     Provide a list of up to 20 high-potential companies.
@@ -196,7 +186,7 @@ export async function discoverCompanies(prompt: string): Promise<CompanySummary[
 }
 
 export async function bulkSummarize(items: string[]): Promise<CompanySummary[]> {
-  const response = await getAI().models.generateContent({
+  const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: `Carefully summarize these ${items.length} companies: ${items.join(", ")}.
     Provide a high-precision summary for EACH company. Return a total of ${items.length} objects.
@@ -233,7 +223,7 @@ export async function bulkSummarize(items: string[]): Promise<CompanySummary[]> 
 }
 
 export async function researchCompany(query: string): Promise<CompanyResearch> {
-  const response = await getAI().models.generateContent({
+  const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: `EXTREME SPEED SCAN: ${query}. 
     Immediate structured intelligence for Team Computers.
@@ -589,7 +579,7 @@ export async function researchCompany(query: string): Promise<CompanyResearch> {
 }
 
 export async function getChatResponse(history: ChatMessage[], context: CompanyResearch): Promise<string> {
-  const response = await getAI().models.generateContent({
+  const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: `You are the "Team Computers Intelligence Bot". You have access to a specific account report for the company "${context.name}".
     Your goal is to answer follow-up questions from sales representatives about this company, its competitors, and the strategic pitch.
